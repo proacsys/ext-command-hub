@@ -1,0 +1,111 @@
+{
+  "name": "command-hub",
+  "displayName": "Command Hub",
+  "description": "Save terminal commands by category, globally across all projects, and run them with one click.",
+  "version": "0.1.1",
+  "publisher": "CommandHub",
+  "icon": "images/icon.png",
+  "license": "MIT",
+  "author": {
+    "name": "ProAcSys",
+    "url": "https://proacsys.in"
+  },
+  "homepage": "https://proacsys.in",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/proacsys/ext-command-hub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/proacsys/ext-command-hub/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "keywords": [
+    "terminal",
+    "commands",
+    "command runner",
+    "snippets",
+    "productivity",
+    "global",
+    "flutter",
+    "git",
+    "docker"
+  ],
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "globalCommandRunner",
+          "title": "Global Commands",
+          "icon": "$(terminal)"
+        }
+      ]
+    },
+    "views": {
+      "globalCommandRunner": [
+        {
+          "id": "globalCommandRunnerView",
+          "name": "Commands"
+        }
+      ]
+    },
+    "commands": [
+      { "command": "globalCommandRunner.addCategory", "title": "Add Category", "icon": "$(add)" },
+      { "command": "globalCommandRunner.addCommand", "title": "Add Command", "icon": "$(add)" },
+      { "command": "globalCommandRunner.runCommand", "title": "Run Command", "icon": "$(play)" },
+      { "command": "globalCommandRunner.editCommand", "title": "Edit Command", "icon": "$(edit)" },
+      { "command": "globalCommandRunner.deleteCommand", "title": "Delete Command", "icon": "$(trash)" },
+      { "command": "globalCommandRunner.deleteCategory", "title": "Delete Category", "icon": "$(trash)" },
+      { "command": "globalCommandRunner.refresh", "title": "Refresh", "icon": "$(refresh)" },
+      { "command": "globalCommandRunner.search", "title": "Filter Commands", "icon": "$(search)" },
+      { "command": "globalCommandRunner.clearFilter", "title": "Clear Filter", "icon": "$(clear-all)" },
+      { "command": "globalCommandRunner.exportCommands", "title": "Export Commands to JSON", "icon": "$(export)" },
+      { "command": "globalCommandRunner.importCommands", "title": "Import Commands from JSON", "icon": "$(cloud-download)" },
+      { "command": "globalCommandRunner.runLastCommand", "title": "Global Command Runner: Run Last Used Command" }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "globalCommandRunner.addCategory", "when": "view == globalCommandRunnerView", "group": "navigation@1" },
+        { "command": "globalCommandRunner.search", "when": "view == globalCommandRunnerView", "group": "navigation@2" },
+        { "command": "globalCommandRunner.clearFilter", "when": "view == globalCommandRunnerView", "group": "navigation@3" },
+        { "command": "globalCommandRunner.refresh", "when": "view == globalCommandRunnerView", "group": "navigation@4" },
+        { "command": "globalCommandRunner.exportCommands", "when": "view == globalCommandRunnerView", "group": "overflow@1" },
+        { "command": "globalCommandRunner.importCommands", "when": "view == globalCommandRunnerView", "group": "overflow@2" }
+      ],
+      "view/item/context": [
+        { "command": "globalCommandRunner.addCommand", "when": "view == globalCommandRunnerView && viewItem == category", "group": "inline@1" },
+        { "command": "globalCommandRunner.deleteCategory", "when": "view == globalCommandRunnerView && viewItem == category", "group": "inline@2" },
+        { "command": "globalCommandRunner.runCommand", "when": "view == globalCommandRunnerView && viewItem == command", "group": "inline@1" },
+        { "command": "globalCommandRunner.editCommand", "when": "view == globalCommandRunnerView && viewItem == command", "group": "inline@2" },
+        { "command": "globalCommandRunner.deleteCommand", "when": "view == globalCommandRunnerView && viewItem == command", "group": "inline@3" }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "globalCommandRunner.runLastCommand",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0",
+    "@vscode/vsce": "^2.24.0"
+  }
+}
